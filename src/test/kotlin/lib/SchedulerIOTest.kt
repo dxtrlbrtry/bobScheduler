@@ -1,19 +1,26 @@
 package lib
 
+import org.junit.jupiter.api.*
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.io.FileNotFoundException
 import kotlin.io.path.*
 
 class SchedulerIOTest {
+    @BeforeEach
+    @AfterEach
+    fun deleteTestArtifacts() {
+        Path(TEST_OUTPUT).deleteIfExists()
+        Path(TEST_INPUT).deleteIfExists()
+    }
+
     @OptIn(ExperimentalPathApi::class)
     @Test
     fun testWriteToNonExistingDirectory() {
-        val path = "src/test/kotlin/test1/test2/testFile.txt"
-        SchedulerIO.writeReport(path, listOf())
-        Path("src/test/kotlin/test1").deleteRecursively()
+        val root = "src/test/kotlin/test1"
+        val nested = "/test2/testFile.txt"
+        SchedulerIO.writeReport(root + nested, listOf())
+        Path(root).deleteRecursively()
     }
 
     @Test

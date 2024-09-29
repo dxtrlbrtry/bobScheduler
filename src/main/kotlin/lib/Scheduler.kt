@@ -7,7 +7,7 @@ open class Scheduler(scheduleLength: Int) {
     protected val cancelledTasks: MutableList<Task> = mutableListOf()
     protected val plannedIntervals: MutableList<Interval> = mutableListOf()
 
-    init { (1..scheduleLength).map { timetable[it] = null } }
+    init { (1..scheduleLength).forEach { timetable[it] = null } }
 
     open fun planSchedule(inputPath: String, outputPath: String) {
         val tasks: List<Task> = SchedulerIO.readTasks(inputPath)
@@ -39,21 +39,21 @@ open class Scheduler(scheduleLength: Int) {
 
     protected open fun printSchedule() {
         println("Timetable:")
-        timetable.map { println("${it.key}, ${it.value?.task}") }
+        timetable.forEach { println("${it.key}, ${it.value?.task}") }
         println("Planned Tasks:")
-        plannedIntervals.map { println("$it, ${timetable[it.start]?.task}") }
+        plannedIntervals.forEach { println("$it, ${timetable[it.start]?.task}") }
         println("Cancelled Tasks:")
-        cancelledTasks.sortedWith(compareBy({ it.estimateInDays }, { it.deliveredOnDay })).map { println(it) }
+        cancelledTasks.sortedWith(compareBy({ it.estimateInDays }, { it.deliveredOnDay })).forEach { println(it) }
     }
 
     private fun updateTimetable(plan: Plan) {
-        (plan.interval.start..plan.interval.end).forEach { timetable[it] = plan}
+        (plan.interval.start..plan.interval.end).forEach { timetable[it] = plan }
         plannedIntervals.add(plan.interval)
         plannedIntervals.sortBy { it.start }
     }
 
     private fun canScheduleInterval(interval: Interval): Boolean {
-        val validDays = timetable.keys.filter { it >= interval.start && it <= interval.end }
+        val validDays = (interval.start..interval.end).filter { it <= timetable.size }
         return validDays.size == interval.end - interval.start + 1 && validDays.all { timetable[it] == null }
     }
 
@@ -74,7 +74,7 @@ open class Scheduler(scheduleLength: Int) {
     }
 
     private fun getFreeSlotsAfterDay(afterDay: Int): IntArray {
-        return timetable.filter { it.key >= afterDay && it.value == null }.map { it.key }.toIntArray()
+        return (afterDay..timetable.size).filter { timetable[it] == null }.toIntArray()
     }
 
     private fun delayFirstTaskRange(freeSlots: IntArray) {

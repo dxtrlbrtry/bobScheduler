@@ -2,8 +2,8 @@ package lib
 
 import lib.models.Plan
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
 import kotlin.io.path.Path
@@ -17,7 +17,7 @@ private class ScheduleDebug(scheduleLength: Int) : Scheduler(scheduleLength) {
             "Planned (${plannedIntervals.size}) and cancelled (${cancelledTasks.size}) tasks don't add up to the total ($totalTasks) tasks")
         for (i: Plan? in timetable.values) {
             if (i?.task != null) {
-                val occurrences = timetable.filter { it.value?.task != null && it.value?.task?.id == i.task.id   }.size
+                val occurrences = timetable.values.filter { it?.task != null && it.task.id == i.task.id  }.size
                 assertEquals(occurrences, i.task.estimateInDays, "Task duration does not match number of slots found in timetable")
             }
         }
@@ -27,23 +27,11 @@ private class ScheduleDebug(scheduleLength: Int) : Scheduler(scheduleLength) {
 }
 
 class SchedulerTest {
-    companion object {
-        private fun deleteTestArtifacts() {
-            Path(TEST_OUTPUT).deleteIfExists()
-            Path(TEST_INPUT).deleteIfExists()
-        }
-
-        @JvmStatic
-        @BeforeAll
-        fun beforeAll() {
-            deleteTestArtifacts()
-        }
-
-        @JvmStatic
-        @AfterAll
-        fun afterAll() {
-            deleteTestArtifacts()
-        }
+    @BeforeEach
+    @AfterEach
+    fun deleteTestArtifacts() {
+        Path(TEST_OUTPUT).deleteIfExists()
+        Path(TEST_INPUT).deleteIfExists()
     }
 
     @Test
