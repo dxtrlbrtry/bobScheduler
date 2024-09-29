@@ -2,7 +2,6 @@ package lib
 
 import lib.models.Plan
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -28,7 +27,6 @@ private class ScheduleDebug(scheduleLength: Int) : Scheduler(scheduleLength) {
 
 class SchedulerTest {
     @BeforeEach
-    @AfterEach
     fun deleteTestArtifacts() {
         Path(TEST_OUTPUT).deleteIfExists()
         Path(TEST_INPUT).deleteIfExists()

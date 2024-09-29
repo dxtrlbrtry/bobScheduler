@@ -7,7 +7,6 @@ import java.io.FileNotFoundException
 import kotlin.io.path.*
 
 class SchedulerIOTest {
-    @BeforeEach
     @AfterEach
     fun deleteTestArtifacts() {
         Path(TEST_OUTPUT).deleteIfExists()
