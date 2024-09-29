@@ -14,11 +14,11 @@ private class ScheduleDebug(scheduleLength: Int) : Scheduler(scheduleLength) {
         super.planSchedule(inputPath, outputPath)
         val totalTasks = File(inputPath).inputStream().bufferedReader().readLines().size
         assertEquals(totalTasks - plannedIntervals.size, cancelledTasks.size,
-            "Planned (${plannedIntervals.size}) and cancelled (${cancelledTasks.size}) tasks don't add upt to the total ($totalTasks) tasks")
+            "Planned (${plannedIntervals.size}) and cancelled (${cancelledTasks.size}) tasks don't add up to the total ($totalTasks) tasks")
         for (i: Plan? in timetable.values) {
             if (i?.task != null) {
                 val occurrences = timetable.filter { it.value?.task != null && it.value?.task?.id == i.task.id   }.size
-                assertEquals(occurrences, i.task.estimateInDays, "Task duration does not match number slots found in timetable")
+                assertEquals(occurrences, i.task.estimateInDays, "Task duration does not match number of slots found in timetable")
             }
         }
     }
