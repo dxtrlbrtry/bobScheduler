@@ -10,7 +10,7 @@ open class Scheduler(scheduleLength: Int) {
     init { (1..scheduleLength).forEach { timetable[it] = null } }
 
     open fun planSchedule(inputPath: String, outputPath: String) {
-        val tasks: List<Task> = SchedulerIO.readTasks(inputPath)
+        val tasks = SchedulerIO.readTasks(inputPath)
             .sortedWith(compareBy({ it.estimateInDays }, { it.deliveredOnDay }))
         tasks.forEach { scheduleTask(it) }
         printSchedule()

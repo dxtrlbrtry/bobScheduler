@@ -9,9 +9,9 @@ import kotlin.io.path.*
 class SchedulerIO {
     companion object {
         @JvmStatic
-        fun readTasks(path: String): Array<Task> {
+        fun readTasks(path: String): List<Task> {
             val tasks = mutableListOf<Task>()
-            val lines: List<String> = File(path).inputStream().bufferedReader().readLines()
+            val lines = File(path).inputStream().bufferedReader().readLines()
             lines.forEach {
                 val (deliveryDay, estimate) = it.split(" ")
                 if (!deliveryDay.all { c -> c.isDigit() } || !estimate.all { c -> c.isDigit() }) {
@@ -24,7 +24,7 @@ class SchedulerIO {
                 }
                 tasks.add(Task(readyInt, durationInt))
             }
-            return tasks.toTypedArray()
+            return tasks
         }
 
         @JvmStatic
