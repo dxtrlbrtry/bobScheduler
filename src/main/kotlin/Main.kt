@@ -3,5 +3,6 @@ package org.main
 import lib.Scheduler
 
 fun main() {
-    Scheduler(SCHEDULE_LENGTH).planSchedule(INPUT_PATH, OUTPUT_PATH)
+    val scheduleLength = System.getenv("SCHEDULE_LENGTH")?.toIntOrNull() ?: SCHEDULE_LENGTH
+    Scheduler(scheduleLength).planSchedule(INPUT_PATH, OUTPUT_PATH)
 }
