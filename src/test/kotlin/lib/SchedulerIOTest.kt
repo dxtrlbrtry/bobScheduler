@@ -19,7 +19,7 @@ class SchedulerIOTest {
     fun testWriteToNonExistingDirectory() {
         val root = "src/test/kotlin/test1"
         val nested = "/test2/testFile.txt"
-        SchedulerIO.writeReport(root + nested, listOf())
+        assertDoesNotThrow { SchedulerIO.writeReport(root + nested, listOf()) }
         Path(root).deleteRecursively()
     }
 

@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y maven
 
 WORKDIR /app
 COPY . .
-RUN /bin/bash -c "mvn clean package"
+RUN mvn clean package
 
 FROM openjdk:11-jre-slim
 
