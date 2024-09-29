@@ -1,7 +1,7 @@
 ## App Description
 
 This application's purpose is to find the maximum amount of tasks that can be completed in a given time interval.
-The schedule length can be overridden by setting the ```SCHEDULE_LENGTH``` environment variable or prepending ```SCHEDULE_LENGTH=X``` to your run command.
+The default schedule length is 10, but it can be overridden by setting the ```SCHEDULE_LENGTH``` environment variable or prepending ```SCHEDULE_LENGTH=X``` to your run command.
 
 The app reads the input from the ```releases.txt``` file from the root directory which is required to have the following format:
 - Each line contains two digits separated by a space
