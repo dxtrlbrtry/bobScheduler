@@ -1,0 +1,7 @@
+target/
+.idea/
+artifacts/
+.gitignore
+Dockerfile
+Makefile
+README.md
