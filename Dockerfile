@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 RUN /bin/bash -c "mvn clean package"
 
-FROM openjdk:17.0.1-jdk-slim
+FROM openjdk:11-jre-slim
 
 WORKDIR /app
 COPY --from=build-env /app/target /app/target
