@@ -1,4 +1,4 @@
-FROM openjdk:17.0.1-jdk-slim AS build-env
+FROM openjdk:11-jdk-slim AS build-env
 
 RUN apt-get update && apt-get install -y maven
 
