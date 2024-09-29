@@ -6,6 +6,7 @@ open class Scheduler(scheduleLength: Int) {
     protected val timetable: MutableMap<Int, Plan?> = mutableMapOf()
     protected val cancelledTasks: MutableList<Task> = mutableListOf()
     protected val plannedIntervals: MutableList<Interval> = mutableListOf()
+
     init { (1..scheduleLength).map { timetable[it] = null } }
 
     open fun planSchedule(inputPath: String, outputPath: String) {
@@ -36,7 +37,7 @@ open class Scheduler(scheduleLength: Int) {
         updateTimetable(Plan(interval, task))
     }
 
-    open fun printSchedule() {
+    protected open fun printSchedule() {
         println("Timetable:")
         timetable.map { println("${it.key}, ${it.value?.task}") }
         println("Planned Tasks:")
