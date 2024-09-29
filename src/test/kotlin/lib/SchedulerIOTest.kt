@@ -5,10 +5,17 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.File
 import java.io.FileNotFoundException
-import kotlin.io.path.Path
-import kotlin.io.path.deleteIfExists
+import kotlin.io.path.*
 
-class FileIOTest {
+class SchedulerIOTest {
+    @OptIn(ExperimentalPathApi::class)
+    @Test
+    fun testWriteToNonExistingDirectory() {
+        val path = "src/test/kotlin/test1/test2/testFile.txt"
+        SchedulerIO.writeReport(path, listOf())
+        Path("src/test/kotlin/test1").deleteRecursively()
+    }
+
     @Test
     fun testNonDigitInput() {
         File(TEST_INPUT).writeText("""
