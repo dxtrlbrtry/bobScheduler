@@ -3,6 +3,7 @@ package lib
 import lib.models.Interval
 import lib.models.Task
 import java.io.File
+import kotlin.io.path.*
 
 class FileIO {
     companion object {
@@ -27,6 +28,9 @@ class FileIO {
 
         @JvmStatic
         fun writeReport(path: String, plannedIntervals: List<Interval>) {
+            if (!Path(path).parent.exists()) {
+                Path(path).parent.createDirectory()
+            }
             File(path).writeText("${plannedIntervals.size}\n${plannedIntervals.joinToString("\n") { "${it.start} ${it.end}" }}")
         }
     }
