@@ -5,6 +5,6 @@ docker-run-debug:
 docker-run:
 	docker run --rm -e SCHEDULE_LENGTH=${SCHEDULE_LENGTH} -v $(PWD)/releases.txt:/app/releases.txt -v $(PWD)/artifacts:/app/artifacts bob-kt
 build:
-	mvn clean install
+	mvn clean package
 run:
 	java -classpath $(PWD)/target/classes:$(PWD)/target/lib/kotlin-stdlib.jar org.main.MainKt
